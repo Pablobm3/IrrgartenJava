@@ -9,5 +9,13 @@ package irrgarten;
  * @author pablo b
  */
 public class Game {
+     
+    private static final int MAX_ROUNDS=10;
+    private int currentPlayerIndex;
+    private String log;
     
+    public Game(int nplayers){
+       
+        
+    }
 }

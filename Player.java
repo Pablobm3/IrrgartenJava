@@ -5,6 +5,12 @@
 package irrgarten;
 
 
+/* Dudas de la clase Player:
+-Row y col hay que inicializarlos también en el constructor?
+-La implementación de attack()es buena?
+-En que momento le damos valores a los arrays de armas y escudos
+*/
+
 import java.util.ArrayList;
 /**
  *
@@ -27,13 +33,16 @@ public class Player {
     private ArrayList<Weapon> weapons;
     private ArrayList<Shield> shields;
     
-    public Player(char number, float intelligence, float strength,float health){
+    public Player(char number, float intelligence, float strength){
         this.number=number;
         this.intelligence=intelligence;
         this.strength=strength;
         this.health=INITIAL_HEALTH;
         this.name="Player# "+number;
-        ArrayList<Weapon> weapons = new ArrayList<>();
+        this.row=0;
+        this.col=0;
+        this.consecutiveHits=0;
+        ArrayList<Weapon> weapons = new ArrayList<>(10);
         ArrayList<Shield> shields = new ArrayList<>();
     }
     
@@ -52,27 +61,40 @@ public class Player {
     }
     
     public boolean dead(){
-        return this.health==0;
+        return this.health==0.0f;
     }
     
-    /*public float attack(){
-       throw new UnsupportedOperationException(); 
+    public float attack(){
+       float sumaFuerza = sumWeapons();
+       
+       float total = this.strength+sumaFuerza;
+       
+       return total;
     }
     
     public boolean defend(float receivedAttack){
         throw new UnsupportedOperationException();
-    }*/
+    }
     
     @Override
     public String toString(){
-        return "Jugador[ Nombre: " +this.name+ " , Numero:  "+this.number+ " , Inteligencia: "+this.intelligence+" , Fuerza: "+this.strength+ " , Salud: "+this.health+" .";
+        return "Jugador[ Nombre: " +this.name+ " , Numero:  "+this.number+ " , Inteligencia: "+this.intelligence+" , Fuerza: "+this.strength+ " , Salud: "+this.health+" ]";
     }
     
-    /*private Weapon newWeapon(){
+    private Weapon newWeapon(){
         
-         throw new UnsupportedOperationException(); 
+        Weapon arma = new Weapon(Dice.weaponPower(),Dice.usesLeft()); 
         
-    }*/
+        return arma;
+        
+    }
+    
+    private Shield newShield(){
+        
+        Shield escudo = new Shield(Dice.shieldPower(),Dice.usesLeft());
+        
+        return escudo;
+    }
     
     private void resetHits(){
         this.consecutiveHits=0;
@@ -87,7 +109,17 @@ public class Player {
     }
     
     private float sumWeapons(){
-        throw new UnsupportedOperationException();
+        float suma = 0.0f;
+        
+        Weapon arma = newWeapon();
+        
+        for(int i=0;i<weapons.size();i++){
+            arma=weapons.get(i);
+            suma +=arma.attack();
+            
+            
+        }
+        return suma;
     }
     
     private float sumShields(){

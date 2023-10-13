@@ -94,9 +94,13 @@ public class TestP1 {
         
         System.out.println(m.dead());*/
         
-        Player p = new Player('P',5.0f,5.0f,5.0f);
+        Player p = new Player('P',5.0f,5.0f);
         
         System.out.println(p.toString());
+        
+        //System.out.println(p.dead());
+        
+        System.out.println(p.attack());
     }
     
 }

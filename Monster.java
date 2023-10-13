@@ -22,14 +22,11 @@ public class Monster {
         this.name = name;
         this.intelligence = intelligence;
         this.strength= strength;
+        this.health=INITIAL_HEALTH;
     }
     
     public boolean dead(){
-        if(this.health == 0){
-            return true;
-        }
-        
-        return false;
+        return this.health==0.0f;
     }
     
     public float attack(){
@@ -44,7 +41,7 @@ public class Monster {
     @Override
     public String toString(){
         
-        return "Nombre del mosntruo: " +this.name+ ", Inteligencia: "+this.intelligence+ " , Fuerza: "+this.strength+ " .";
+        return "Nombre del monstruo: " +this.name+ ", Inteligencia: "+this.intelligence+ " , Fuerza: "+this.strength+ " .";
     }
     
     private void gotWounded(){
